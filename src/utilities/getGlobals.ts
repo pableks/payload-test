@@ -3,14 +3,16 @@ import type { Config } from 'src/payload-types'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { unstable_cache } from 'next/cache'
+import type { GlobalSlug } from 'payload'
 
-type Global = keyof Config['globals']
+// Extended Global type to include "landing" which might not be in the generated types yet
+type Global = keyof Config['globals'] | 'landing'
 
 async function getGlobal(slug: Global, depth = 0) {
   const payload = await getPayload({ config: configPromise })
 
   const global = await payload.findGlobal({
-    slug,
+    slug: slug as GlobalSlug,
     depth,
   })
 

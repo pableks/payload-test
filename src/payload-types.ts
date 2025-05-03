@@ -72,6 +72,7 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
+    'contact-form-submissions': ContactFormSubmission;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -88,6 +89,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    'contact-form-submissions': ContactFormSubmissionsSelect<false> | ContactFormSubmissionsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -103,10 +105,12 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
+    landing: Landing;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    landing: LandingSelect<false> | LandingSelect<true>;
   };
   locale: null;
   user: User & {
@@ -737,6 +741,21 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-form-submissions".
+ */
+export interface ContactFormSubmission {
+  id: number;
+  name: string;
+  email: string;
+  phone?: string | null;
+  service?: ('advisor' | 'loans' | 'planning' | 'business' | 'investments' | 'insurance' | 'other') | null;
+  message: string;
+  status?: ('new' | 'in-progress' | 'completed') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -926,6 +945,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: number | User;
+      } | null)
+    | ({
+        relationTo: 'contact-form-submissions';
+        value: number | ContactFormSubmission;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1294,6 +1317,20 @@ export interface UsersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-form-submissions_select".
+ */
+export interface ContactFormSubmissionsSelect<T extends boolean = true> {
+  name?: T;
+  email?: T;
+  phone?: T;
+  service?: T;
+  message?: T;
+  status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects_select".
  */
 export interface RedirectsSelect<T extends boolean = true> {
@@ -1606,6 +1643,121 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "landing".
+ */
+export interface Landing {
+  id: number;
+  hero: {
+    heading: string;
+    subheading: string;
+    links?:
+      | {
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: number | Post;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline') | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+    backgroundImage?: (number | null) | Media;
+  };
+  services: {
+    heading: string;
+    subheading: string;
+    serviceItems?:
+      | {
+          title: string;
+          description: string;
+          icon: 'advisor' | 'loans' | 'planning' | 'business' | 'investments' | 'insurance';
+          link?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  about: {
+    heading: string;
+    content?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    image?: (number | null) | Media;
+    valuesList?:
+      | {
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  testimonials: {
+    heading: string;
+    subheading?: string | null;
+    testimonialItems?:
+      | {
+          quote: string;
+          name: string;
+          position?: string | null;
+          company?: string | null;
+          date?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  contact: {
+    heading: string;
+    address?: string | null;
+    email?: string | null;
+    phoneNumbers?:
+      | {
+          number: string;
+          id?: string | null;
+        }[]
+      | null;
+    businessHours?: string | null;
+    socialLinks?:
+      | {
+          platform: 'facebook' | 'twitter' | 'youtube' | 'linkedin';
+          url: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  formSettings?: {
+    heading?: string | null;
+    successMessage?: string | null;
+    errorMessage?: string | null;
+    sendButtonLabel?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -1645,6 +1797,110 @@ export interface FooterSelect<T extends boolean = true> {
               label?: T;
             };
         id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "landing_select".
+ */
+export interface LandingSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        heading?: T;
+        subheading?: T;
+        links?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    appearance?: T;
+                  };
+              id?: T;
+            };
+        backgroundImage?: T;
+      };
+  services?:
+    | T
+    | {
+        heading?: T;
+        subheading?: T;
+        serviceItems?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              icon?: T;
+              link?: T;
+              id?: T;
+            };
+      };
+  about?:
+    | T
+    | {
+        heading?: T;
+        content?: T;
+        image?: T;
+        valuesList?:
+          | T
+          | {
+              label?: T;
+              id?: T;
+            };
+      };
+  testimonials?:
+    | T
+    | {
+        heading?: T;
+        subheading?: T;
+        testimonialItems?:
+          | T
+          | {
+              quote?: T;
+              name?: T;
+              position?: T;
+              company?: T;
+              date?: T;
+              id?: T;
+            };
+      };
+  contact?:
+    | T
+    | {
+        heading?: T;
+        address?: T;
+        email?: T;
+        phoneNumbers?:
+          | T
+          | {
+              number?: T;
+              id?: T;
+            };
+        businessHours?: T;
+        socialLinks?:
+          | T
+          | {
+              platform?: T;
+              url?: T;
+              id?: T;
+            };
+      };
+  formSettings?:
+    | T
+    | {
+        heading?: T;
+        successMessage?: T;
+        errorMessage?: T;
+        sendButtonLabel?: T;
       };
   updatedAt?: T;
   createdAt?: T;

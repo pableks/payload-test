@@ -6,14 +6,15 @@ import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
 import { uploadthingStorage } from '@payloadcms/storage-uploadthing' // Correct import with proper name
 
-
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
+import { ContactFormSubmissions } from './collections/FormSubmissions'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
+import { Landing } from './Landing/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
@@ -65,9 +66,9 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URI || '',
     },
   }),
-  collections: [Pages, Posts, Media, Categories, Users],
+  collections: [Pages, Posts, Media, Categories, Users, ContactFormSubmissions],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [Header, Footer],
+  globals: [Header, Footer, Landing],
   plugins: [
     ...plugins,
     uploadthingStorage({
