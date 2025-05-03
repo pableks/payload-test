@@ -47,7 +47,7 @@ export const seed = async ({
         slug: global,
         data: {
           navItems: [],
-        },
+        } as any, // Type assertion to bypass type checking
         depth: 0,
         context: {
           disableRevalidate: true,
