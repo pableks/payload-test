@@ -1,10 +1,11 @@
 // storage-adapter-import-placeholder
 import { postgresAdapter } from '@payloadcms/db-postgres'
-
 import sharp from 'sharp' // sharp-import
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
+import { uploadthingStorage } from '@payloadcms/storage-uploadthing' // Correct import with proper name
+
 
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
@@ -69,7 +70,15 @@ export default buildConfig({
   globals: [Header, Footer],
   plugins: [
     ...plugins,
-    // storage-adapter-placeholder
+    uploadthingStorage({
+      collections: {
+        media: true,
+      },
+      options: {
+        token: process.env.UPLOADTHING_TOKEN,
+        acl: 'public-read',
+      },
+    }),
   ],
   secret: process.env.PAYLOAD_SECRET,
   sharp,
