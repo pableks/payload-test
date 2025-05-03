@@ -3,7 +3,7 @@
 import React from 'react'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-import { Media as MediaType } from '@/payload-types'
+import { Media as MediaType, Page, Post } from '@/payload-types'
 
 type HeroProps = {
   data: {
@@ -15,7 +15,7 @@ type HeroProps = {
         newTab?: boolean | null
         reference?: {
           relationTo: 'pages' | 'posts'
-          value: string | number | any
+          value: string | number | Page | Post
         } | null
         url?: string | null
         label: string

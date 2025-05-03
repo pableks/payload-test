@@ -39,7 +39,7 @@ export const TestimonialsSection: React.FC<TestimonialsProps> = ({ data }) => {
                     <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
                   ))}
                 </div>
-                <p className="text-gray-700 mb-6 italic">"{item.quote}"</p>
+                <p className="text-gray-700 mb-6 italic">&ldquo;{item.quote}&rdquo;</p>
                 <div className="flex items-center">
                   <div>
                     <p className="font-semibold">{item.name}</p>
