@@ -12,7 +12,7 @@ interface RowLabelProps {
   }
 }
 
-export const RowLabel: React.FC<RowLabelProps> = ({ data }) => {
+const RowLabel: React.FC<RowLabelProps> = ({ data }) => {
   return (
     <div>
       {data?.link?.label && <span>{data.link.label}</span>}
@@ -20,3 +20,5 @@ export const RowLabel: React.FC<RowLabelProps> = ({ data }) => {
     </div>
   )
 }
+
+export default RowLabel

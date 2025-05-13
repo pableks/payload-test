@@ -106,6 +106,22 @@ export const Landing: GlobalConfig = {
               type: 'text',
               label: 'Learn More Link',
             },
+            {
+              name: 'benefits',
+              type: 'array',
+              label: 'Benefits',
+              admin: {
+                description:
+                  'List of benefits for this service that will appear in the detail dialog',
+              },
+              fields: [
+                {
+                  name: 'benefit',
+                  type: 'text',
+                  required: true,
+                },
+              ],
+            },
           ],
         },
       ],

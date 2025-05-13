@@ -1685,6 +1685,15 @@ export interface Landing {
           description: string;
           icon: 'advisor' | 'loans' | 'planning' | 'business' | 'investments' | 'insurance';
           link?: string | null;
+          /**
+           * List of benefits for this service that will appear in the detail dialog
+           */
+          benefits?:
+            | {
+                benefit: string;
+                id?: string | null;
+              }[]
+            | null;
           id?: string | null;
         }[]
       | null;
@@ -1841,6 +1850,12 @@ export interface LandingSelect<T extends boolean = true> {
               description?: T;
               icon?: T;
               link?: T;
+              benefits?:
+                | T
+                | {
+                    benefit?: T;
+                    id?: T;
+                  };
               id?: T;
             };
       };
