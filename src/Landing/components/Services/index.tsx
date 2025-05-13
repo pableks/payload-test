@@ -5,12 +5,17 @@ import { CircleDollarSign, Users, LineChart, Building2, PiggyBank, Shield, X } f
 import { useTheme } from '@/providers/Theme'
 import { cn } from '@/utilities/ui'
 
+type Benefit = {
+  benefit: string
+  id?: string | null
+}
+
 type ServiceItem = {
   title: string
   description: string
   icon: 'advisor' | 'loans' | 'planning' | 'business' | 'investments' | 'insurance'
   link?: string
-  benefits?: string[] // Add benefits array to store list of benefits
+  benefits?: Benefit[] | null // Update to match payload-types.ts
 }
 
 type ServicesProps = {
@@ -28,7 +33,7 @@ interface DialogProps {
   title: string
   description: string
   icon: string
-  benefits?: string[] // Add benefits prop to DialogProps
+  benefits?: Benefit[] | null // Add benefits prop to DialogProps
   isDarkMode: boolean
 }
 
