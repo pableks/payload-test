@@ -88,7 +88,7 @@ export const ContactSection: React.FC<ContactProps> = ({ data, formSettings }) =
   }
 
   return (
-    <section className="py-16">
+    <section id="contact-section" className="py-16">
       <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Contact Information */}

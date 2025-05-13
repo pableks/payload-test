@@ -42,7 +42,7 @@ export const ServicesSection: React.FC<ServicesProps> = ({ data }) => {
   }
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section id="services-section" className="py-16 bg-gray-50">
       <div className="container">
         <div className="text-center mb-12">
           {heading && <h2 className="text-3xl font-bold mb-4">{heading}</h2>}
