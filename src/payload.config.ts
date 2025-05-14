@@ -15,6 +15,7 @@ import { ContactFormSubmissions } from './collections/FormSubmissions'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { Landing } from './Landing/config'
+import { SEO } from './SEO/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
@@ -68,7 +69,7 @@ export default buildConfig({
   }),
   collections: [Pages, Posts, Media, Categories, Users, ContactFormSubmissions],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [Header, Footer, Landing],
+  globals: [Header, Footer, Landing, SEO],
   plugins: [
     ...plugins,
     uploadthingStorage({

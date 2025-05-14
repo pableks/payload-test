@@ -7,6 +7,7 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
 import PageClient from './page.client'
+import { getSEOData } from '@/utilities/getSEOData'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
@@ -32,7 +33,7 @@ export default async function Page() {
       <PageClient />
       <div className="container mb-16">
         <div className="prose dark:prose-invert max-w-none">
-          <h1>Posts</h1>
+          <h1>Blog</h1>
         </div>
       </div>
 
@@ -56,8 +57,30 @@ export default async function Page() {
   )
 }
 
-export function generateMetadata(): Metadata {
+export async function generateMetadata(): Promise<Metadata> {
+  const seoData = await getSEOData()
+
+  // Use blog-specific settings from SEO global if available
+  if (seoData && seoData.blogSettings) {
+    return {
+      title: seoData.blogSettings.title,
+      description: seoData.blogSettings.description,
+      openGraph: {
+        title: seoData.blogSettings.title,
+        description: seoData.blogSettings.description,
+        locale: seoData.siteMeta?.locale || 'es_ES',
+      },
+    }
+  }
+
+  // Fallback to default values if CMS data is not available
   return {
-    title: `Payload Website Template Posts`,
+    title: `Blog | SAVA Servicios Financieros`,
+    description: 'Artículos y noticias sobre finanzas, inversiones y economía personal',
+    openGraph: {
+      title: 'Blog | SAVA Servicios Financieros',
+      description: 'Artículos y noticias sobre finanzas, inversiones y economía personal',
+      locale: 'es_ES',
+    },
   }
 }

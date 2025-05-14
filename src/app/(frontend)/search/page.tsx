@@ -7,6 +7,7 @@ import React from 'react'
 import { Search } from '@/search/Component'
 import PageClient from './page.client'
 import { CardPostData } from '@/components/Card'
+import { getSEOData } from '@/utilities/getSEOData'
 
 type Args = {
   searchParams: Promise<{
@@ -64,7 +65,7 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
       <PageClient />
       <div className="container mb-16">
         <div className="prose dark:prose-invert max-w-none text-center">
-          <h1 className="mb-8 lg:mb-16">Search</h1>
+          <h1 className="mb-8 lg:mb-16">Búsqueda</h1>
 
           <div className="max-w-[50rem] mx-auto">
             <Search />
@@ -75,14 +76,36 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
       {posts.totalDocs > 0 ? (
         <CollectionArchive posts={posts.docs as CardPostData[]} />
       ) : (
-        <div className="container">No results found.</div>
+        <div className="container">No se encontraron resultados.</div>
       )}
     </div>
   )
 }
 
-export function generateMetadata(): Metadata {
+export async function generateMetadata(): Promise<Metadata> {
+  const seoData = await getSEOData()
+
+  // Use search-specific settings from SEO global if available
+  if (seoData && seoData.searchSettings) {
+    return {
+      title: seoData.searchSettings.title,
+      description: seoData.searchSettings.description,
+      openGraph: {
+        title: seoData.searchSettings.title,
+        description: seoData.searchSettings.description,
+        locale: seoData.siteMeta?.locale || 'es_ES',
+      },
+    }
+  }
+
+  // Fallback to default values if CMS data is not available
   return {
-    title: `Payload Website Template Search`,
+    title: `Búsqueda | SAVA Servicios Financieros`,
+    description: 'Busca información sobre servicios financieros, inversiones, préstamos y más',
+    openGraph: {
+      title: 'Búsqueda | SAVA Servicios Financieros',
+      description: 'Busca información sobre servicios financieros, inversiones, préstamos y más',
+      locale: 'es_ES',
+    },
   }
 }

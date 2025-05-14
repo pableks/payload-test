@@ -27,13 +27,15 @@ export const generateMeta = async (args: {
   const ogImage = getImageURL(doc?.meta?.image)
 
   const title = doc?.meta?.title
-    ? doc?.meta?.title + ' | Payload Website Template'
-    : 'Payload Website Template'
+    ? doc?.meta?.title + ' | SAVA Servicios Financieros'
+    : 'SAVA Servicios Financieros'
 
   return {
     description: doc?.meta?.description,
     openGraph: mergeOpenGraph({
-      description: doc?.meta?.description || '',
+      description:
+        doc?.meta?.description ||
+        'Servicios financieros personalizados para impulsar tu crecimiento económico.',
       images: ogImage
         ? [
             {

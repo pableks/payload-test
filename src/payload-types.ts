@@ -106,11 +106,13 @@ export interface Config {
     header: Header;
     footer: Footer;
     landing: Landing;
+    seo: Seo;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     landing: LandingSelect<false> | LandingSelect<true>;
+    seo: SeoSelect<false> | SeoSelect<true>;
   };
   locale: null;
   user: User & {
@@ -1767,6 +1769,46 @@ export interface Landing {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "seo".
+ */
+export interface Seo {
+  id: number;
+  siteMeta: {
+    title: string;
+    description: string;
+    keywords?:
+      | {
+          keyword: string;
+          id?: string | null;
+        }[]
+      | null;
+    defaultImage: number | Media;
+    locale: 'es_ES' | 'es_LA' | 'en_US';
+  };
+  social?: {
+    twitter?: {
+      handle?: string | null;
+      cardType?: ('summary' | 'summary_large_image' | 'app' | 'player') | null;
+    };
+    organization?: {
+      name?: string | null;
+      url?: string | null;
+      logo?: (number | null) | Media;
+    };
+  };
+  searchSettings?: {
+    title?: string | null;
+    description?: string | null;
+  };
+  blogSettings?: {
+    title?: string | null;
+    description?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -1916,6 +1958,58 @@ export interface LandingSelect<T extends boolean = true> {
         successMessage?: T;
         errorMessage?: T;
         sendButtonLabel?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "seo_select".
+ */
+export interface SeoSelect<T extends boolean = true> {
+  siteMeta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        keywords?:
+          | T
+          | {
+              keyword?: T;
+              id?: T;
+            };
+        defaultImage?: T;
+        locale?: T;
+      };
+  social?:
+    | T
+    | {
+        twitter?:
+          | T
+          | {
+              handle?: T;
+              cardType?: T;
+            };
+        organization?:
+          | T
+          | {
+              name?: T;
+              url?: T;
+              logo?: T;
+            };
+      };
+  searchSettings?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
+  blogSettings?:
+    | T
+    | {
+        title?: T;
+        description?: T;
       };
   updatedAt?: T;
   createdAt?: T;
