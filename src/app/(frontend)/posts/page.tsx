@@ -62,12 +62,17 @@ export async function generateMetadata(): Promise<Metadata> {
 
   // Use blog-specific settings from SEO global if available
   if (seoData && seoData.blogSettings) {
+    const title = seoData.blogSettings.title || 'Blog | SAVA Servicios Financieros'
+    const description =
+      seoData.blogSettings.description ||
+      'Artículos y noticias sobre finanzas, inversiones y economía personal'
+
     return {
-      title: seoData.blogSettings.title,
-      description: seoData.blogSettings.description,
+      title: title,
+      description: description,
       openGraph: {
-        title: seoData.blogSettings.title,
-        description: seoData.blogSettings.description,
+        title: title,
+        description: description,
         locale: seoData.siteMeta?.locale || 'es_ES',
       },
     }
