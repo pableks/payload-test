@@ -87,12 +87,15 @@ export async function generateMetadata(): Promise<Metadata> {
 
   // Use search-specific settings from SEO global if available
   if (seoData && seoData.searchSettings) {
+    const title = seoData.searchSettings.title || 'Búsqueda | SAVA Servicios Financieros'
+    const description = seoData.searchSettings.description || 'Busca información sobre servicios financieros, inversiones, préstamos y más'
+    
     return {
-      title: seoData.searchSettings.title,
-      description: seoData.searchSettings.description,
+      title: title,
+      description: description,
       openGraph: {
-        title: seoData.searchSettings.title,
-        description: seoData.searchSettings.description,
+        title: title,
+        description: description,
         locale: seoData.siteMeta?.locale || 'es_ES',
       },
     }
