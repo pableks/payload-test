@@ -132,21 +132,6 @@ const HamburgerMenu: React.FC = () => {
                 {item.label}
               </button>
             ))}
-            <Link
-              href="/search"
-              className={cn(
-                'block px-6 py-4 text-lg font-medium transition-colors border-b',
-                isDarkMode
-                  ? 'border-gray-700 hover:bg-gray-800 hover:text-blue-400'
-                  : 'border-gray-100 hover:bg-gray-100 hover:text-blue-600',
-              )}
-              onClick={() => {
-                setIsOpen(false)
-                document.body.style.overflow = ''
-              }}
-            >
-              Search
-            </Link>
           </nav>
 
           <div className={cn('p-6 border-t', isDarkMode ? 'border-gray-700' : 'border-gray-200')}>
