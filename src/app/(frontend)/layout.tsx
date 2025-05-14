@@ -73,7 +73,9 @@ export async function generateMetadata(): Promise<Metadata> {
 
   // Get image URL for OpenGraph
   const imageUrl = seoData.siteMeta.defaultImage
-    ? `${getServerSideURL()}${seoData.siteMeta.defaultImage.url}`
+    ? typeof seoData.siteMeta.defaultImage === 'object' && 'url' in seoData.siteMeta.defaultImage
+      ? `${getServerSideURL()}${seoData.siteMeta.defaultImage.url}`
+      : `${getServerSideURL()}/website-template-OG.webp`
     : `${getServerSideURL()}/website-template-OG.webp`
 
   return {
